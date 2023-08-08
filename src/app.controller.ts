@@ -1,11 +1,9 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import {
   UsersAppService,
   ProductsAppService,
   MainAppService,
 } from './app.service';
-import { join } from 'path';
-import { createReadStream } from 'fs';
 
 @Controller('/') // Add '/user' route
 export class MainAppController {
