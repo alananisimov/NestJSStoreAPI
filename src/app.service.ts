@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
-const filePath = path.join(process.cwd(), './products.json');
+const filePath = 'https://nest-js-store-api.vercel.app/products.json';
 @Injectable()
 export class UsersAppService {
   getUsers(): string[] {
