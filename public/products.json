@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "title": "Book 1",
+        "price": 109.95,
+        "description": "Your perfect Book 1",
+        "category": "Books",
+        "image": "http://localhost:3000/6665209.jpg",
+        "rating": {
+            "rate": 3.9,
+            "count": 120
+        }
+    },
+    {
+        "id": 2,
+        "title": "Book 2",
+        "price": 22.3,
+        "description": "Your perfect Book 2",
+        "category": "Books",
+        "image": "http://localhost:3000/6885583.jpg",
+        "rating": {
+            "rate": 4.1,
+            "count": 259
+        }
+    },
+    {
+        "id": 3,
+        "title": "Book 3",
+        "price": 55.99,
+        "description": "Your perfect Book 3",
+        "category": "Books",
+        "image": "http://localhost:3000/6915569.jpg",
+        "rating": {
+            "rate": 4.7,
+            "count": 500
+        }
+    },
+    {
+        "id": 4,
+        "title": "Book 4",
+        "price": 15.99,
+        "description": "Your perfect Book 4",
+        "category": "Books",
+        "image": "http://localhost:3000/6920933.jpg",
+        "rating": {
+            "rate": 2.1,
+            "count": 430
+        }
+    },
+    {
+        "id": 5,
+        "title": "Book 5",
+        "price": 695,
+        "description": "Your perfect Book 5",
+        "category": "Books",
+        "image": "http://localhost:3000/6940546.jpg",
+        "rating": {
+            "rate": 4.6,
+            "count": 400
+        }
+    },
+    {
+        "id": 6,
+        "title": "Book 6",
+        "price": 168,
+        "description": "Your perfect Book 6",
+        "category": "Books",
+        "image": "http://localhost:3000/6940546.jpg",
+        "rating": {
+            "rate": 3.9,
+            "count": 70
+        }
+    }
+]
