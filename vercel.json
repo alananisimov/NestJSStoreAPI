@@ -1,7 +1,7 @@
 {
     "headers": [
       {
-        "source": "/src/(.*)",
+        "source": "/(.*)",
         "headers": [
           { "key": "Access-Control-Allow-Credentials", "value": "true" },
           { "key": "Access-Control-Allow-Origin", "value": "*" },
@@ -11,12 +11,9 @@
       }
     ],
     
-        "functions": {
-          "src/*.ts": {
-            "memory": 3008,
-            "maxDuration": 30
-          }
-        },
+    
+    "rewrites": [{ "source": "/(*)", "destination": "src/main.ts" }],
+      
       
     "public": true,
     "buildCommand": "nest build"
