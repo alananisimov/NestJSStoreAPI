@@ -11,6 +11,13 @@
       }
     ],
     
+        "functions": {
+          "src/*.ts": {
+            "memory": 3008,
+            "maxDuration": 30
+          }
+        },
+      
     "public": true,
     "buildCommand": "nest build"
       
