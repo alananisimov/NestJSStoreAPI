@@ -12,11 +12,7 @@
     ],
     
     
-    "rewrites": [{ "source": "/(*)", "destination": "src/main.ts" }],
-      
-      
-    "public": true,
-    "buildCommand": "nest build"
+    "rewrites": [{ "source": "/(.*)", "destination": "src/main.ts" }]
       
   }
   
