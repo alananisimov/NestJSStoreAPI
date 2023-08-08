@@ -12,7 +12,7 @@
     ],
     
     
-    "rewrites": [{ "source": "/(.*)", "destination": "src/main.ts" }]
-      
+    "rewrites": [{ "source": "/(.*)", "destination": "src/main.ts" }],
+    "public": false
   }
   
