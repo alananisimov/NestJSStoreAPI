@@ -26,5 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npx nest build
-    - run: npx nest start
+    - run: npm install
+    - run: npm run build
+    - run: npx run start
