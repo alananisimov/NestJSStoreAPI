@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Product } from './Product';
 import * as fs from 'fs';
-import * as path from 'path';
 const filePath = '/tmp/users.json';
 @Injectable()
 export class ProductsService {
@@ -31,5 +30,14 @@ export class ProductsService {
   addProduct(newProduct: Product) {
     this.products.push(newProduct);
     this.saveProducts();
+  }
+  deleteProduct(id: number): Product | null {
+    const index = this.products.findIndex(product => product.id === id);
+    if (index !== -1) {
+      const deletedProduct = this.products.splice(index, 1)[0];
+      this.saveProducts();
+      return deletedProduct;
+    }
+    return null;
   }
 }
