@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Product } from './Product';
 import * as fs from 'fs';
-import * as path from 'path';
-const filePath = '/tmp/users.json';
+
 @Injectable()
 export class ProductsService {
   private readonly products: Product[] = [];
@@ -13,7 +12,7 @@ export class ProductsService {
 
   private loadProducts() {
     try {
-      const data = fs.readFileSync(filePath, 'utf8');
+      const data = fs.readFileSync('/tmp/products.json', 'utf8');
       this.products.push(...JSON.parse(data));
     } catch (error) {
       console.error('Error loading products:', error);
@@ -21,7 +20,10 @@ export class ProductsService {
   }
 
   private saveProducts() {
-    fs.writeFileSync(filePath, JSON.stringify([], null, 2));
+    fs.writeFileSync(
+      '/tmp/products.json',
+      JSON.stringify(this.products, null, 2),
+    );
   }
 
   getAllProducts(): Product[] {
@@ -31,5 +33,15 @@ export class ProductsService {
   addProduct(newProduct: Product) {
     this.products.push(newProduct);
     this.saveProducts();
+  }
+
+  deleteProduct(id: number): Product | null {
+    const index = this.products.findIndex((product) => product.id === id);
+    if (index !== -1) {
+      const deletedProduct = this.products.splice(index, 1)[0];
+      this.saveProducts();
+      return deletedProduct;
+    }
+    return null;
   }
 }
