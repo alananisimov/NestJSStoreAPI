@@ -25,7 +25,7 @@ export class UsersAppController {
     return this.appService.getUsers();
   }
 }
-@Controller('/products') // Add '/user' route
+@Controller('/get_products') // Add '/user' route
 export class ProductsAppController {
   constructor(private readonly appService: ProductsAppService) {}
 

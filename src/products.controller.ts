@@ -1,17 +1,39 @@
-import { Controller, Get, Query, Post, Body } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
 
-@Controller('/add_product')
+@Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
-  getProduct(@Query('id') id: number) {
-    return this.productsService.getProduct(id);
+  getAllProducts() {
+    return this.productsService.getAllProducts();
   }
 
-  @Post()
-  addProduct(@Body() product: any) {
-    return this.productsService.addProduct(product);
+  @Get('add')
+  addProduct(
+    @Query('id') id: number,
+    @Query('title') title: string,
+    @Query('price') price: number,
+    @Query('description') description: string,
+    @Query('category') category: string,
+    @Query('image') image: string,
+    @Query('ratingRate') ratingRate: number,
+    @Query('ratingCount') ratingCount: number,
+  ) {
+    const newProduct = {
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+      rating: {
+        rate: ratingRate,
+        count: ratingCount,
+      },
+    };
+    this.productsService.addProduct(newProduct);
+    return newProduct;
   }
 }
