@@ -20,7 +20,7 @@ export class ProductsService {
   }
 
   private saveProducts() {
-    fs.writeFileSync(filePath, JSON.stringify([], null, 2));
+    fs.writeFileSync(filePath, JSON.stringify(this.products, null, 2));
   }
 
   getAllProducts(): Product[] {
