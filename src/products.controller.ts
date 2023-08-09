@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './Product';
 
@@ -15,15 +15,5 @@ export class ProductsController {
   addProductFromURL(@Body() newProduct: Product) {
     this.productsService.addProduct(newProduct);
     return newProduct;
-  }
-
-  @Delete('delete/:id')
-  deleteProduct(@Param('id') id: number) {
-    const deletedProduct = this.productsService.deleteProduct(id);
-    if (deletedProduct) {
-      return { message: 'Product deleted successfully' };
-    } else {
-      return { message: 'Product not found' };
-    }
   }
 }

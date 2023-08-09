@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Product } from './Product';
 import * as fs from 'fs';
-const filePath = '/tmp/products.json';
-
+import * as path from 'path';
+const filePath = '/tmp/users.json';
 @Injectable()
 export class ProductsService {
   private readonly products: Product[] = [];
@@ -21,7 +21,7 @@ export class ProductsService {
   }
 
   private saveProducts() {
-    fs.writeFileSync(filePath, JSON.stringify(this.products, null, 2));
+    fs.writeFileSync(filePath, JSON.stringify([], null, 2));
   }
 
   getAllProducts(): Product[] {
@@ -31,15 +31,5 @@ export class ProductsService {
   addProduct(newProduct: Product) {
     this.products.push(newProduct);
     this.saveProducts();
-  }
-
-  deleteProduct(id: number): Product | null {
-    const index = this.products.findIndex(product => product.id === id);
-    if (index !== -1) {
-      const deletedProduct = this.products.splice(index, 1)[0];
-      this.saveProducts();
-      return deletedProduct;
-    }
-    return null;
   }
 }
