@@ -12,7 +12,7 @@ async function bootstrap() {
   const productsService = app.get(AddProductService);
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
-
+  app.use(productsService);
   await app.listen(3000);
 }
 bootstrap();
