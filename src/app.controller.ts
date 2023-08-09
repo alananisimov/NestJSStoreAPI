@@ -4,7 +4,6 @@ import {
   ProductsAppService,
   MainAppService,
 } from './app.service';
-import { AddProductService } from './product.service';
 
 @Controller('/') // Add '/user' route
 export class MainAppController {
@@ -34,15 +33,5 @@ export class ProductsAppController {
   @Get()
   getProducts(): string {
     return this.appService.getProducts();
-  }
-}
-
-@Controller('/add_product')
-export class AddProductController {
-  constructor(private readonly productsService: AddProductService) {}
-
-  @Get()
-  getAllProducts() {
-    return this.productsService.getAllProducts();
   }
 }

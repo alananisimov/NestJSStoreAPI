@@ -3,7 +3,6 @@ import {
   UsersAppController,
   ProductsAppController,
   MainAppController,
-  AddProductController,
 } from './app.controller';
 import {
   UsersAppService,
@@ -11,23 +10,10 @@ import {
   MainAppService,
 } from './app.service';
 import { UserModule } from './user/user.module';
-import { AddProductService } from './product.service';
-import { ProductsController } from './products.controller';
 
 @Module({
   imports: [UserModule],
-  controllers: [
-    UsersAppController,
-    ProductsAppController,
-    MainAppController,
-    AddProductController,
-    ProductsController,
-  ],
-  providers: [
-    UsersAppService,
-    ProductsAppService,
-    MainAppService,
-    AddProductService,
-  ],
+  controllers: [UsersAppController, ProductsAppController, MainAppController],
+  providers: [UsersAppService, ProductsAppService, MainAppService],
 })
 export class AppModule {}
