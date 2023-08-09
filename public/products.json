@@ -70,5 +70,17 @@
       "rate": 3.9,
       "count": 70
     }
+  },
+  {
+    "id": 7,
+    "title": "Book 7",
+    "price": 99.99,
+    "description": "A brand new book",
+    "category": "Books",
+    "image": "https://nest-js-store-api.vercel.app/6940546.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 50
+    }
   }
 ]
