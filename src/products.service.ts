@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Product } from './Product';
 import * as fs from 'fs';
 import * as path from 'path';
-const filePath = path.join(process.cwd(), './public/products.json');
+const filePath = '/tmp/users.json';
 @Injectable()
 export class ProductsService {
   private readonly products: Product[] = [];

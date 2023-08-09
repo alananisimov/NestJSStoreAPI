@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
-export const filePath = path.join(process.cwd(), './public/products.json');
+const filePath = '/tmp/users.json';
 @Injectable()
 export class UsersAppService {
   getUsers(): string[] {
