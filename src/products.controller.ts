@@ -1,5 +1,6 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ProductsService } from './products.service';
+import { Product } from './Product';
 
 @Controller('products')
 export class ProductsController {
@@ -10,18 +11,20 @@ export class ProductsController {
     return this.productsService.getAllProducts();
   }
 
-  @Get('add')
-  addProduct(
-    @Query('id') id: number,
-    @Query('title') title: string,
-    @Query('price') price: number,
-    @Query('description') description: string,
-    @Query('category') category: string,
-    @Query('image') image: string,
-    @Query('ratingRate') ratingRate: number,
-    @Query('ratingCount') ratingCount: number,
+  @Get(
+    'add/:id/:title/:price/:description/:category/:image/:ratingRate/:ratingCount',
+  )
+  addProductFromURL(
+    @Param('id') id: number,
+    @Param('title') title: string,
+    @Param('price') price: number,
+    @Param('description') description: string,
+    @Param('category') category: string,
+    @Param('image') image: string,
+    @Param('ratingRate') ratingRate: number,
+    @Param('ratingCount') ratingCount: number,
   ) {
-    const newProduct = {
+    const newProduct: Product = {
       id,
       title,
       price,
@@ -33,6 +36,7 @@ export class ProductsController {
         count: ratingCount,
       },
     };
+
     this.productsService.addProduct(newProduct);
     return newProduct;
   }
