@@ -13,7 +13,7 @@ export class ProductsService {
   private loadProducts() {
     try {
       const data = fs.readFileSync(filePath, 'utf8');
-      this.products.push(...JSON.parse(data));
+      this.products.push(JSON.parse(data));
     } catch (error) {
       console.error('Error loading products:', error);
     }
