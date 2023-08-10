@@ -12,9 +12,10 @@ import {
 import { UserModule } from './user/user.module';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UserModule],
+  imports: [UserModule, ConfigModule.forRoot()],
   controllers: [
     UsersAppController,
     ProductsAppController,

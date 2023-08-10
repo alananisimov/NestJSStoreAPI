@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Product } from './Product';
 import * as fs from 'fs';
-const filePath = '/tmp/products.json';
+import { get } from '@vercel/edge-config';
+import * as axios from 'axios';
 @Injectable()
 export class ProductsService {
   private readonly products: Product[] = [];
@@ -10,17 +11,35 @@ export class ProductsService {
     this.loadProducts();
   }
 
-  private loadProducts() {
+  private async loadProducts() {
     try {
-      const data = fs.readFileSync(filePath, 'utf8');
-      this.products.push(...JSON.parse(data));
+      const data: Array<Product> = await get('products');
+      data.map((product) => this.products.push(product));
+      console.log(this.products);
     } catch (error) {
       console.error('Error loading products:', error);
     }
   }
 
-  private saveProducts() {
-    fs.writeFileSync(filePath, JSON.stringify(this.products, null, 2));
+  private async saveProducts() {
+    try {
+      const res = await axios.default.patch(
+        'https://api.vercel.com/v1/edge-config/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/items',
+        {
+          items: [
+            { operation: 'update', key: 'products', value: this.products },
+          ],
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
+          },
+        },
+      );
+    } catch (err) {
+      console.log(err.response);
+    }
   }
 
   getAllProducts(): Product[] {
@@ -30,14 +49,5 @@ export class ProductsService {
   addProduct(newProduct: Product) {
     this.products.push(newProduct);
     this.saveProducts();
-  }
-  deleteProduct(id: number): Product | null {
-    const index = this.products.findIndex(product => product.id === id);
-    if (index !== -1) {
-      const deletedProduct = this.products.splice(index, 1)[0];
-      this.saveProducts();
-      return deletedProduct;
-    }
-    return null;
   }
 }
