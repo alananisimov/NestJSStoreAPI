@@ -13,7 +13,7 @@ export class ProductsService {
   private async loadProducts() {
     try {
       const data: Array<Product> = await get('products');
-      data.map((product) => this.products.push(product));
+      this.products = data;
       console.log(this.products);
     } catch (error) {
       console.error('Error loading products:', error);
@@ -43,16 +43,12 @@ export class ProductsService {
   }
 
   async getAllProducts() {
-    const data = axios.default
-      .get(
-        'https://edge-config.vercel.com/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/item/products?token=4679659a-ad8c-4aa9-92e7-8345465955d0',
-      )
-      .finally(() => {
-        return data;
-      });
+    this.loadProducts();
+    return this.products;
   }
 
   addProduct(newProduct: Product) {
+    this.loadProducts();
     this.products.push(newProduct);
     this.saveProducts();
   }
