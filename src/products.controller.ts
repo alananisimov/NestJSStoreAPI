@@ -7,9 +7,7 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
   @Get()
   async getProducts() {
-    const id = await get('products');
-
-    return id;
+    return this.productsService.getAllProducts();
   }
   @Post('add')
   addProductFromURL(@Body() newProduct: Product) {
