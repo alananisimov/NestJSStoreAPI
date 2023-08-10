@@ -42,8 +42,9 @@ export class ProductsService {
     }
   }
 
-  getAllProducts(): Product[] {
-    return this.products;
+  async getAllProducts() {
+    const data: Array<Product> = await get('products');
+    return data;
   }
 
   addProduct(newProduct: Product) {
