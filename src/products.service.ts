@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Product } from './Product';
-import * as fs from 'fs';
 import { get } from '@vercel/edge-config';
 import * as axios from 'axios';
 @Injectable()
 export class ProductsService {
-  private readonly products: Product[] = [];
+  private products: Product[] = [];
 
   constructor() {
     this.loadProducts();
@@ -50,5 +49,10 @@ export class ProductsService {
   addProduct(newProduct: Product) {
     this.products.push(newProduct);
     this.saveProducts();
+  }
+  deleteProduct() {
+    this.products = [];
+    this.saveProducts();
+    return this.products;
   }
 }

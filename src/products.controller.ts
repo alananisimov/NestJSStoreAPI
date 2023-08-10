@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Delete, Param, Ip } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './Product';
 import { get } from '@vercel/edge-config';
@@ -15,5 +15,9 @@ export class ProductsController {
   addProductFromURL(@Body() newProduct: Product) {
     this.productsService.addProduct(newProduct);
     return newProduct;
+  }
+  @Get('delete')
+  clearProducts() {
+    return this.productsService.deleteProduct();
   }
 }
