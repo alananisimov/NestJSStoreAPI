@@ -1,9 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import {
-  UsersAppService,
-  ProductsAppService,
-  MainAppService,
-} from './app.service';
+import { UsersAppService, MainAppService } from './app.service';
 
 @Controller('/') // Add '/user' route
 export class MainAppController {
@@ -23,15 +19,5 @@ export class UsersAppController {
   @Get()
   getUsers(): string[] {
     return this.appService.getUsers();
-  }
-}
-@Controller('/get_products') // Add '/user' route
-export class ProductsAppController {
-  constructor(private readonly appService: ProductsAppService) {}
-
-  // Change the function name to getUsers
-  @Get()
-  getProducts(): string {
-    return this.appService.getProducts();
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Product } from './Product';
+import { Product } from './models/Product';
 import { get } from '@vercel/edge-config';
 import * as axios from 'axios';
 @Injectable()

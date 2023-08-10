@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpCode } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { Product } from './Product';
-import { get } from '@vercel/edge-config';
+import { Product } from './models/Product';
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
   @Get()
+  @HttpCode(200)
   async getProducts() {
     return this.productsService.getAllProducts();
   }
