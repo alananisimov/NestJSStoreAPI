@@ -5,10 +5,21 @@ import * as axios from 'axios';
 @Injectable()
 export class ProductsService {
   async getAllProducts() {
-    const req = axios.default.get(
-      'https://edge-config.vercel.com/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/item/products?token=4679659a-ad8c-4aa9-92e7-8345465955d0',
-    );
-    return req;
+    try {
+      const response = await axios.default.get(
+        'https://edge-config.vercel.com/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/item/products',
+        {
+          headers: {
+            Authorization: 'Bearer 4679659a-ad8c-4aa9-92e7-8345465955d0',
+          },
+        },
+      );
+
+      return response.data; // Return the actual data from the response
+    } catch (error) {
+      // Handle error here
+      throw error;
+    }
   }
 
   async addProduct(newProduct: Product) {
