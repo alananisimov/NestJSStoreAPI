@@ -44,6 +44,9 @@ export class ProductsService {
 
   async getAllProducts() {
     const data = await get('products');
+    axios.default.get(
+      'https://edge-config.vercel.com/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/item/products?token=4679659a-ad8c-4aa9-92e7-8345465955d0',
+    );
     return data;
   }
 
