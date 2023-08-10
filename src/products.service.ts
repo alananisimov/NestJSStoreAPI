@@ -48,9 +48,9 @@ export class ProductsService {
   }
 
   addProduct(newProduct: Product) {
-    this.loadProducts();
     this.products.push(newProduct);
     this.saveProducts();
+    return this.products;
   }
   deleteProduct() {
     this.products = [];
