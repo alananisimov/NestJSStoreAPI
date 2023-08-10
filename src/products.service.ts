@@ -43,7 +43,7 @@ export class ProductsService {
   }
 
   async getAllProducts() {
-    const data: Array<Product> = await get('products');
+    const data = await get('products');
     return data;
   }
 
