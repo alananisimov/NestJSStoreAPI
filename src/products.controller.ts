@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  HttpCode,
+  ParseIntPipe,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './models/Product';
 @Controller('products')
@@ -14,8 +23,12 @@ export class ProductsController {
     this.productsService.addProduct(newProduct);
     return newProduct;
   }
-  @Get('delete')
+  @Get('delete_all')
   clearProducts() {
-    return this.productsService.deleteProduct();
+    return this.productsService.deleteAllProducts();
+  }
+  @Get('deletebyid/:id')
+  deleteById(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.deleteById(id);
   }
 }
