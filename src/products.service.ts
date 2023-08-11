@@ -2,6 +2,7 @@ import { HttpCode, Injectable } from '@nestjs/common';
 import { Product } from './models/Product';
 import { get } from '@vercel/edge-config';
 import * as axios from 'axios';
+import { error } from 'console';
 @Injectable()
 export class ProductsService {
   async getAllProducts() {
@@ -69,30 +70,27 @@ export class ProductsService {
       // Find the index of the product with the given ID
       const productIndex = products.findIndex((product) => product.id === id);
       // Remove the product from the array
-      products[productIndex] = newProduct;
-      products[productIndex].title = newProduct?.title;
-      products[productIndex].description = newProduct?.description;
-      products[productIndex].image = newProduct?.image;
-      products[productIndex].id = newProduct?.id;
-      products[productIndex].rating.count = newProduct?.rating?.count;
-      products[productIndex].rating.rate = newProduct?.rating?.rate;
-      products[productIndex].price = newProduct?.price;
-      // Update the products list on the server
-      const updateResponse = await axios.default.patch(
-        'https://api.vercel.com/v1/edge-config/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/items',
-        {
-          items: [{ operation: 'update', key: 'products', value: products }],
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
+      if (productIndex !== -1) {
+        products[productIndex] = newProduct;
+        // Update the products list on the server
+        const updateResponse = await axios.default.patch(
+          'https://api.vercel.com/v1/edge-config/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/items',
+          {
+            items: [{ operation: 'update', key: 'products', value: products }],
           },
-        },
-      );
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
+            },
+          },
+        );
 
-      console.log(updateResponse);
-      console.log(newProduct);
+        console.log(updateResponse);
+        console.log(newProduct);
+      } else {
+        error('no items found with id' + productIndex);
+      }
     } catch (error) {
       // Handle error here
       throw error;
