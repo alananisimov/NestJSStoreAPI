@@ -69,8 +69,8 @@ export class ProductsService {
       // Find the index of the product with the given ID
       const productIndex = products.findIndex((product) => product.id === id);
       // Remove the product from the array
-      products[productIndex].category = newProduct.category;
       products[productIndex].title = newProduct.title;
+      products[productIndex].category = newProduct.category.toString();
       products[productIndex].description = newProduct.description;
       products[productIndex].image = newProduct.image;
       products[productIndex].id = newProduct.id;
