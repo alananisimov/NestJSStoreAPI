@@ -69,7 +69,14 @@ export class ProductsService {
       // Find the index of the product with the given ID
       const productIndex = products.findIndex((product) => product.id === id);
       // Remove the product from the array
-      products[productIndex] = newProduct;
+      products[productIndex].category = newProduct?.category;
+      products[productIndex].title = newProduct?.title;
+      products[productIndex].description = newProduct?.description;
+      products[productIndex].image = newProduct?.image;
+      products[productIndex].id = newProduct?.id;
+      products[productIndex].rating.count = newProduct?.rating?.count;
+      products[productIndex].rating.rate = newProduct?.rating?.rate;
+      products[productIndex].price = newProduct?.price;
       // Update the products list on the server
       const updateResponse = await axios.default.patch(
         'https://api.vercel.com/v1/edge-config/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/items',
