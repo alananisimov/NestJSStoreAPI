@@ -66,13 +66,7 @@ export class ProductsService {
 
       const products: Product[] = response.data;
       // Find the index of the product with the given ID
-      const productIndex = Number(
-        products.map((product) => () => {
-          if (product.id == id) {
-            return products.indexOf(product);
-          }
-        }),
-      );
+      const productIndex = products.findIndex((product) => product.id === id);
       // Remove the product from the array
       if (productIndex !== -1) {
         products[productIndex] = newProduct;
