@@ -31,4 +31,11 @@ export class ProductsController {
   deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.deleteById(id);
   }
+  @Get('editbyid/:id')
+  EditProductFromURL(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() newProduct: Product,
+  ) {
+    this.productsService.updateProductById(id, newProduct);
+  }
 }

@@ -6,7 +6,7 @@ import * as axios from 'axios';
 export class ProductsService {
   async getAllProducts() {
     try {
-      const response = await axios.default.get(
+      const response = await axios.default.get<Product[]>(
         'https://edge-config.vercel.com/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/item/products',
         {
           headers: {
@@ -14,8 +14,8 @@ export class ProductsService {
           },
         },
       );
-
-      return response.data; // Return the actual data from the response
+      const new1 = response.data;
+      return new1; // Return the actual data from the response
     } catch (error) {
       // Handle error here
       throw error;
@@ -51,6 +51,52 @@ export class ProductsService {
       },
     );
     console.log(res);
+  }
+  async updateProductById(id, newProduct: Product) {
+    try {
+      const response = await axios.default.get(
+        'https://edge-config.vercel.com/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/item/products',
+        {
+          headers: {
+            Authorization: 'Bearer 4679659a-ad8c-4aa9-92e7-8345465955d0',
+          },
+        },
+      );
+
+      const products: Product[] = response.data;
+      console.log(products);
+      console.log(JSON.stringify(newProduct));
+      // Find the index of the product with the given ID
+      const productIndex = products.findIndex((product) => product.id === id);
+      // Remove the product from the array
+      products[productIndex].category = newProduct.category;
+      products[productIndex].title = newProduct.title;
+      products[productIndex].description = newProduct.description;
+      products[productIndex].image = newProduct.image;
+      products[productIndex].id = newProduct.id;
+      products[productIndex].rating.count = newProduct.rating.count;
+      products[productIndex].rating.rate = newProduct.rating.rate;
+      products[productIndex].price = newProduct.price;
+      // Update the products list on the server
+      const updateResponse = await axios.default.patch(
+        'https://api.vercel.com/v1/edge-config/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/items',
+        {
+          items: [{ operation: 'update', key: 'products', value: products }],
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
+          },
+        },
+      );
+
+      console.log(updateResponse);
+      console.log(newProduct);
+    } catch (error) {
+      // Handle error here
+      throw error;
+    }
   }
   async deleteById(id: number) {
     try {
