@@ -53,7 +53,7 @@ export class ProductsService {
     );
     console.log(res);
   }
-  async updateProductById(id, newProduct: Product) {
+  async updateProductById(id: number, newProduct: Product) {
     try {
       const response = await axios.default.get(
         'https://edge-config.vercel.com/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/item/products',
@@ -65,8 +65,11 @@ export class ProductsService {
       );
 
       const products: Product[] = response.data;
+      console.log(newProduct);
       // Find the index of the product with the given ID
-      const productIndex = products.findIndex((product) => product.id === id);
+      const productIndex = products.findIndex(
+        (product) => product.id.toString() === id.toString(),
+      );
       // Remove the product from the array
       if (productIndex !== -1) {
         products[productIndex] = newProduct;

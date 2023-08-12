@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Param,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './models/Product';
@@ -31,7 +32,7 @@ export class ProductsController {
   deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.deleteById(id);
   }
-  @Get('editbyid/:id')
+  @Patch('editbyid/:id')
   EditProductFromURL(
     @Param('id', ParseIntPipe) id: number,
     @Body() newProduct: Product,
