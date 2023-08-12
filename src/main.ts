@@ -13,8 +13,7 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
   app.useStaticAssets({
-    root: path.join(__dirname, 'public'),
-    prefix: '/public/',
+    root: path.join(process.cwd(), './public'),
   });
   await app.listen(port, '0.0.0.0');
 }
