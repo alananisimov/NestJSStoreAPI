@@ -4,6 +4,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+
 import * as path from 'path';
 const port = process.env.PORT || 3000;
 // Use this after the variable declaration

@@ -1,19 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { HttpCode, Injectable } from '@nestjs/common';
 import { Product } from './models/Product';
+import { get } from '@vercel/edge-config';
 import * as axios from 'axios';
 import { error } from 'console';
-import { env } from 'process';
 @Injectable()
 export class ProductsService {
   async getAllProducts() {
     try {
       const response = await axios.default.get<Product[]>(
-        'https://edge-config.vercel.com/' +
-          process.env.EDGE_READ_ACCESS_TOKEN +
-          '/item/products',
+        'https://edge-config.vercel.com/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/item/products',
         {
           headers: {
-            Authorization: 'Bearer ' + process.env.EDGE_ID,
+            Authorization: 'Bearer 4679659a-ad8c-4aa9-92e7-8345465955d0',
           },
         },
       );
@@ -27,43 +25,41 @@ export class ProductsService {
 
   async addProduct(newProduct: Product) {
     const res = await axios.default.patch(
-      'https://api.vercel.com/v1/edge-config/' + process.env.EDGE_ID + '/items',
+      'https://api.vercel.com/v1/edge-config/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/items',
       {
         items: [{ operation: 'update', key: 'products', value: newProduct }],
       },
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + process.env.EDGE_ID,
+          Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
         },
       },
     );
-    return res;
+    console.log(res);
   }
   async deleteAllProducts() {
     const res = await axios.default.patch(
-      'https://api.vercel.com/v1/edge-config/' + process.env.EDGE_ID + '/items',
+      'https://api.vercel.com/v1/edge-config/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/items',
       {
         items: [{ operation: 'update', key: 'products', value: [] }],
       },
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + process.env.EDGE_READ_ACCESS_TOKEN,
+          Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
         },
       },
     );
-    return res;
+    console.log(res);
   }
   async updateProductById(id: number, newProduct: Product) {
     try {
       const response = await axios.default.get(
-        'https://edge-config.vercel.com/' +
-          process.env.EDGE_ID +
-          '/item/products',
+        'https://edge-config.vercel.com/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/item/products',
         {
           headers: {
-            Authorization: 'Bearer ' + process.env.EDGE_READ_ACCESS_TOKEN,
+            Authorization: 'Bearer 4679659a-ad8c-4aa9-92e7-8345465955d0',
           },
         },
       );
@@ -79,16 +75,14 @@ export class ProductsService {
         products[productIndex] = newProduct;
         // Update the products list on the server
         const updateResponse = await axios.default.patch(
-          'https://api.vercel.com/v1/edge-config/' +
-            process.env.READ_ACCESS_TOKEN +
-            '/items',
+          'https://api.vercel.com/v1/edge-config/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/items',
           {
             items: [{ operation: 'update', key: 'products', value: products }],
           },
           {
             headers: {
               'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + process.env.EDGE_ID,
+              Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
             },
           },
         );
@@ -106,12 +100,10 @@ export class ProductsService {
   async deleteById(id: number) {
     try {
       const response = await axios.default.get(
-        'https://edge-config.vercel.com/' +
-          process.env.READ_ACCESS_TOKEN +
-          '/item/products',
+        'https://edge-config.vercel.com/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/item/products',
         {
           headers: {
-            Authorization: 'Bearer ' + process.env.EDGE_ID,
+            Authorization: 'Bearer 4679659a-ad8c-4aa9-92e7-8345465955d0',
           },
         },
       );
@@ -125,16 +117,14 @@ export class ProductsService {
       products.splice(productIndex, 1);
       // Update the products list on the server
       const updateResponse = await axios.default.patch(
-        'https://api.vercel.com/v1/edge-config/' +
-          process.env.READ_ACCESS_TOKEN +
-          '/items',
+        'https://api.vercel.com/v1/edge-config/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/items',
         {
           items: [{ operation: 'update', key: 'products', value: products }],
         },
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + process.env.EDGE_ID,
+            Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
           },
         },
       );
