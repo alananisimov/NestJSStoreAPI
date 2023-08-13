@@ -19,20 +19,24 @@ export class ProductsController {
   async getProducts() {
     return this.productsService.getAllProducts();
   }
-  @Post('add')
+  @Patch('add')
+  @HttpCode(202)
   addProductFromURL(@Body() newProduct: Product) {
     this.productsService.addProduct(newProduct);
     return newProduct;
   }
-  @Get('delete_all')
+  @Delete('delete_all')
+  @HttpCode(202)
   clearProducts() {
     return this.productsService.deleteAllProducts();
   }
-  @Get('deletebyid/:id')
+  @Delete('deletebyid/:id')
+  @HttpCode(202)
   deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.deleteById(id);
   }
   @Patch('editbyid/:id')
+  @HttpCode(200)
   EditProductFromURL(
     @Param('id', ParseIntPipe) id: number,
     @Body() newProduct: Product,
