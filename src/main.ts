@@ -12,7 +12,6 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
-    { cors: false },
   );
   const config = new DocumentBuilder()
     .setTitle('BookConer api')
@@ -25,6 +24,7 @@ async function bootstrap() {
   app.useStaticAssets({
     root: path.join(process.cwd(), './public'),
   });
+  app.enableCors();
   await app.listen(port, '0.0.0.0');
 }
 bootstrap();
