@@ -21,8 +21,12 @@ export class ProductsController {
   @Patch('add')
   @HttpCode(202)
   addProductFromURL(@Body() newProduct: Product) {
-    this.productsService.addProduct(newProduct);
-    return newProduct;
+    if (newProduct != undefined && null && '' && {}) {
+      this.productsService.addProduct(newProduct);
+      return newProduct;
+    } else {
+      return 'Body cant be null';
+    }
   }
   @Delete('delete_all')
   @HttpCode(202)
@@ -40,6 +44,10 @@ export class ProductsController {
     @Param('id', ParseIntPipe) id: number,
     @Body() newProduct: Product,
   ) {
-    this.productsService.updateProductById(id, newProduct);
+    if (newProduct != undefined && null && '' && {}) {
+      this.productsService.updateProductById(id, newProduct);
+    } else {
+      return 'Body cant be null';
+    }
   }
 }
