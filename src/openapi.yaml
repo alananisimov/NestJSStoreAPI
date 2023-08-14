@@ -1,0 +1,65 @@
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      operationId: MainAppController_getMain
+      parameters: []
+      responses:
+        '200':
+          description: ''
+  /products:
+    get:
+      operationId: ProductsController_getProducts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+  /products/add:
+    patch:
+      operationId: ProductsController_addProductFromURL
+      parameters: []
+      responses:
+        '202':
+          description: ''
+  /products/delete_all:
+    delete:
+      operationId: ProductsController_clearProducts
+      parameters: []
+      responses:
+        '202':
+          description: ''
+  /products/deletebyid/{id}:
+    delete:
+      operationId: ProductsController_deleteById
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '202':
+          description: ''
+  /products/editbyid/{id}:
+    patch:
+      operationId: ProductsController_EditProductFromURL
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+info:
+  title: BookConer api
+  description: BookConer official api
+  version: '1.0'
+  contact: {}
+tags:
+  - name: books
+    description: ''
+servers: []
+components:
+  schemas: {}
