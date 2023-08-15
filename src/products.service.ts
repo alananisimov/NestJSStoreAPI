@@ -80,7 +80,7 @@ export class ProductsService {
         },
       },
     );
-    console.log(res);
+    res;
   }
   async updateProductById(id: number, newProduct: Product) {
     try {

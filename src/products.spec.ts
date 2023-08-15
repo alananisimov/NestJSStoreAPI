@@ -49,4 +49,16 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Body cant be null');
   });
+  it('/products/deletebyid/0 (DELETE)', () => {
+    return request(app.getHttpServer())
+      .delete('/products/deletebyid/0')
+      .expect(202)
+      .expect('id cant be 0');
+  });
+  it('/products/delete_all (DELETE)', () => {
+    return request(app.getHttpServer())
+      .delete('/products/delete_all')
+      .expect(202)
+      .expect('id cant be 0');
+  });
 });
