@@ -24,7 +24,7 @@ export class ProductsController {
   @Patch('add')
   @HttpCode(202)
   addProductFromURL(@Body() newProduct: Product) {
-    if (newProduct != undefined && null && '' && {}) {
+    if (newProduct != undefined) {
       this.productsService.addProduct(newProduct);
       return newProduct;
     } else {

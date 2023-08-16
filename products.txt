@@ -80,7 +80,7 @@
     "price": "109.95",
     "description": "Your perfect Book 1",
     "category": "Books",
-    "image": "https://nest-js-store-api.vercel.app/6665209.jpg",
+    "image": "https://api.bookconer.site/6665209.jpg",
     "rate": "3.9",
     "count": "120"
   },
@@ -90,7 +90,7 @@
     "price": "22.3",
     "description": "Your perfect Book 2",
     "category": "Books",
-    "image": "https://nest-js-store-api.vercel.app/6885583.jpg",
+    "image": "https://api.bookconer.site/6885583.jpg",
     "rate": "4.1",
     "count": "259"
   },
@@ -100,7 +100,7 @@
     "price": "55.99",
     "description": "Your perfect Book 3",
     "category": "Books",
-    "image": "https://nest-js-store-api.vercel.app/6915569.jpg",
+    "image": "https://api.bookconer.site/6915569.jpg",
     "rate": "4.7",
     "count": "500"
   },
@@ -110,7 +110,7 @@
     "price": "15.99",
     "description": "Your perfect Book 4",
     "category": "Books",
-    "image": "https://nest-js-store-api.vercel.app/6920933.jpg",
+    "image": "https://api.bookconer.site/6920933.jpg",
     "rate": "2.1",
     "count": "430"
   },
@@ -120,7 +120,7 @@
     "price": "695",
     "description": "Your perfect Book 5",
     "category": "Books",
-    "image": "https://nest-js-store-api.vercel.app/6940546.jpg",
+    "image": "https://api.bookconer.site/6940546.jpg",
     "rate": "4.6",
     "count": "400"
   },
@@ -130,7 +130,7 @@
     "price": "168",
     "description": "Your perfect Book 6",
     "category": "Books",
-    "image": "https://nest-js-store-api.vercel.app/6940546.jpg",
+    "image": "https://api.bookconer.site/6940546.jpg",
     "rate": "3.9",
     "count": "70"
   }
