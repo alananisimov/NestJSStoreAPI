@@ -6,7 +6,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import * as path from 'path';
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || (3000 && 3001);
 // Use this after the variable declaration
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(

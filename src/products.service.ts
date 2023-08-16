@@ -147,23 +147,21 @@ export class ProductsService {
       if (productIndex !== -1) {
         products.splice(productIndex, 1);
         const updateResponse = await axios.default.patch(
-          'https://api.vercel.com/v1/edge-config/' +
-            process.env.EDGE_ID +
-            '/items',
+          'https://api.vercel.com/v1/edge-config/ecfg_jeulv3pkm9h0aj04qaufb2fgqxbf/items',
           {
             items: [{ operation: 'update', key: 'products', value: products }],
           },
           {
             headers: {
               'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + process.env.EDGE_READ_ACCESS_TOKEN,
+              Authorization: 'Bearer 4679659a-ad8c-4aa9-92e7-8345465955d0',
             },
           },
         );
 
         console.log(updateResponse);
       } else {
-        return 'Product with id ${pro} didnt find';
+        return 'Product didnt find';
       }
     } catch (error) {
       throw error;
