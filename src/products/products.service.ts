@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Product } from './models/Product';
+import { Product } from '../models/Product';
 import * as axios from 'axios';
 import { error } from 'console';
 @Injectable()

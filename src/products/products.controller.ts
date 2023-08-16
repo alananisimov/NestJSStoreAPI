@@ -10,8 +10,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { Product } from './models/Product';
-import { AuthGuard } from './auth/auth.guard';
+import { Product } from '../models/Product';
+import { AuthGuard } from '../auth/auth.guard';
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
