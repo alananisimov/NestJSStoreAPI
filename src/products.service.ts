@@ -141,25 +141,30 @@ export class ProductsService {
 
       const products: Product[] = response.data;
       console.log(products);
-      const productIndex = products.findIndex((product) => product.id === id);
-
-      products.splice(productIndex, 1);
-      const updateResponse = await axios.default.patch(
-        'https://api.vercel.com/v1/edge-config/' +
-          process.env.EDGE_ID +
-          '/items',
-        {
-          items: [{ operation: 'update', key: 'products', value: products }],
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
-          },
-        },
+      const productIndex = products.findIndex(
+        (product) => product.id.toString() === id.toString(),
       );
+      if (productIndex !== -1) {
+        products.splice(productIndex, 1);
+        const updateResponse = await axios.default.patch(
+          'https://api.vercel.com/v1/edge-config/' +
+            process.env.EDGE_ID +
+            '/items',
+          {
+            items: [{ operation: 'update', key: 'products', value: products }],
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
+            },
+          },
+        );
 
-      console.log(updateResponse);
+        console.log(updateResponse);
+      } else {
+        error('no items found with id' + productIndex);
+      }
     } catch (error) {
       throw error;
     }
