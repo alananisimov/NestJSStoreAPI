@@ -54,7 +54,7 @@ export class ProductsController {
     @Param('id', ParseIntPipe) id: number,
     @Body() newProduct: Product,
   ) {
-    if (newProduct != undefined && null && '' && {}) {
+    if (newProduct != undefined) {
       this.productsService.updateProductById(id, newProduct);
     } else {
       return 'Body cant be null';
