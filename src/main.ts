@@ -1,26 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import * as path from 'path';
+// import { db } from '@vercel/postgres';
 const port = process.env.PORT || 3000;
-// Use this after the variable declaration
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
   );
-  const config = new DocumentBuilder()
-    .setTitle('BookConer api')
-    .setDescription('BookConer official api')
-    .setVersion('1.0')
-    .addTag('books')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  // const { rows, fields } = await db.sql`SELECT * FROM reviews`;
+  // console.log(rows, fields);
   app.useStaticAssets({
     root: path.join(process.cwd(), './public'),
   });

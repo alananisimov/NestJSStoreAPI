@@ -12,31 +12,35 @@ import {
 import { ProductsService } from './products.service';
 import { Product } from '../models/Product';
 import { AuthGuard } from '../auth/auth.guard';
+
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
+
   @Get()
   @HttpCode(200)
   async getProducts() {
     return this.productsService.getAllProducts();
   }
+
   @UseGuards(AuthGuard)
   @Patch('add')
   @HttpCode(202)
   addProductFromURL(@Body() newProduct: Product) {
     if (newProduct != undefined) {
-      this.productsService.addProduct(newProduct);
-      return newProduct;
+      return this.productsService.addProduct(newProduct);
     } else {
       return 'Body cant be null';
     }
   }
+
   @UseGuards(AuthGuard)
   @Delete('delete_all')
   @HttpCode(202)
   clearProducts() {
     return this.productsService.deleteAllProducts();
   }
+
   @UseGuards(AuthGuard)
   @Delete('deletebyid/:id')
   @HttpCode(202)
@@ -47,6 +51,7 @@ export class ProductsController {
       return 'id cant be 0';
     }
   }
+
   @UseGuards(AuthGuard)
   @Patch('editbyid/:id')
   @HttpCode(200)
@@ -55,7 +60,7 @@ export class ProductsController {
     @Body() newProduct: Product,
   ) {
     if (newProduct != undefined) {
-      this.productsService.updateProductById(id, newProduct);
+      return this.productsService.updateProductById(id, newProduct);
     } else {
       return 'Body cant be null';
     }

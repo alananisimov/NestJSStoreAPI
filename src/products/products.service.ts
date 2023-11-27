@@ -1,23 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Product } from '../models/Product';
-import * as axios from 'axios';
-import { error } from 'console';
+import { db } from '@vercel/postgres';
+
 @Injectable()
 export class ProductsService {
   async getAllProducts() {
     try {
-      const response = await axios.default.get<Product[]>(
-        'https://edge-config.vercel.com/' +
-          process.env.EDGE_ID +
-          '/item/products',
-        {
-          headers: {
-            Authorization: 'Bearer ' + process.env.EDGE_READ_ACCESS_TOKEN,
-          },
-        },
-      );
-      const new1 = response.data;
-      return new1;
+      const result = await db.query('SELECT * FROM products');
+      const products: Product[] = result.rows;
+      return products;
     } catch (error) {
       throw error;
     }
@@ -25,146 +16,63 @@ export class ProductsService {
 
   async addProduct(newProduct: Product) {
     try {
-      const response = await axios.default.get<Product[]>(
-        'https://edge-config.vercel.com/' +
-          process.env.EDGE_ID +
-          '/item/products',
-        {
-          headers: {
-            Authorization: 'Bearer ' + process.env.EDGE_READ_ACCESS_TOKEN,
-          },
-        },
+      const result = await db.query(
+        'INSERT INTO products (category, count, description, id, image, price, rate, title) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+        [
+          newProduct.category,
+          newProduct.count,
+          newProduct.description,
+          newProduct.id,
+          newProduct.image,
+          newProduct.price,
+          newProduct.rate,
+          newProduct.title,
+        ],
       );
 
-      const existingProducts: Product[] = response.data;
-
-      existingProducts.push(newProduct);
-
-      const updateResponse = await axios.default.patch(
-        'https://api.vercel.com/v1/edge-config/' +
-          process.env.EDGE_ID +
-          '/items',
-        {
-          items: [
-            {
-              operation: 'update',
-              key: 'products',
-              value: existingProducts,
-            },
-          ],
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
-          },
-        },
-      );
-
-      console.log(updateResponse);
+      console.log('Inserted product:', result.rows[0]);
     } catch (error) {
       throw error;
     }
   }
 
   async deleteAllProducts() {
-    const res = await axios.default.patch(
-      'https://api.vercel.com/v1/edge-config/' + process.env.EDGE_ID + '/items',
-      {
-        items: [{ operation: 'update', key: 'products', value: [] }],
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
-        },
-      },
-    );
-    res;
-  }
-  async updateProductById(id: number, newProduct: Product) {
     try {
-      const response = await axios.default.get(
-        'https://edge-config.vercel.com/' +
-          process.env.EDGE_ID +
-          '/item/products',
-        {
-          headers: {
-            Authorization: 'Bearer ' + process.env.EDGE_READ_ACCESS_TOKEN,
-          },
-        },
-      );
-
-      const products: Product[] = response.data;
-      console.log(newProduct);
-      const productIndex = products.findIndex(
-        (product) => product.id.toString() === id.toString(),
-      );
-      if (productIndex !== -1) {
-        products[productIndex] = newProduct;
-        const updateResponse = await axios.default.patch(
-          'https://api.vercel.com/v1/edge-config/' +
-            process.env.EDGE_ID +
-            '/items',
-          {
-            items: [{ operation: 'update', key: 'products', value: products }],
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
-            },
-          },
-        );
-
-        console.log(updateResponse);
-        console.log(newProduct);
-      } else {
-        error('no items found with id' + productIndex);
-      }
+      await db.query('DELETE FROM products');
     } catch (error) {
       throw error;
     }
   }
+
+  async updateProductById(id: number, newProduct: Product) {
+    try {
+      const result = await db.query(
+        'UPDATE products SET category=$1, count=$2, description=$3, image=$4, price=$5, rate=$6, title=$7 WHERE id=$8 RETURNING *',
+        [
+          newProduct.category,
+          newProduct.count,
+          newProduct.description,
+          newProduct.image,
+          newProduct.price,
+          newProduct.rate,
+          newProduct.title,
+          id,
+        ],
+      );
+
+      console.log('Updated product:', result.rows[0]);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async deleteById(id: number) {
     try {
-      const response = await axios.default.get(
-        'https://edge-config.vercel.com/' +
-          process.env.EDGE_ID +
-          '/item/products',
-        {
-          headers: {
-            Authorization: 'Bearer ' + process.env.EDGE_READ_ACCESS_TOKEN,
-          },
-        },
+      const result = await db.query(
+        'DELETE FROM products WHERE id=$1 RETURNING *',
+        [id],
       );
-
-      const products: Product[] = response.data;
-      console.log(products);
-      const productIndex = products.findIndex(
-        (product) => product.id.toString() === id.toString(),
-      );
-      if (productIndex !== -1) {
-        products.splice(productIndex, 1);
-        const updateResponse = await axios.default.patch(
-          'https://api.vercel.com/v1/edge-config/' +
-            process.env.EDGE_ID +
-            '/items',
-          {
-            items: [{ operation: 'update', key: 'products', value: products }],
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer 7KDKt8lR35SJHgPfcRhJrPT1',
-            },
-          },
-        );
-
-        console.log(updateResponse);
-      } else {
-        error('no items found with id' + productIndex);
-      }
+      console.log('Deleted product:', result.rows[0]);
     } catch (error) {
       throw error;
     }

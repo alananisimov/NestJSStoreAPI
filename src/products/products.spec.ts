@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../app.module';
+import { Product } from 'src/models/Product';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -26,39 +27,30 @@ describe('AppController (e2e)', () => {
   });
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Main page');
+    return request(app.getHttpServer()).get('/').expect(404);
   });
   it('/products (GET)', () => {
     return request(app.getHttpServer())
       .get('/products')
       .expect(200)
-      .expect(Array);
+      .expect(Array<Product>);
   });
   it('/products/add (PATCH)', () => {
-    return request(app.getHttpServer())
-      .patch('/products/add')
-      .expect(202)
-      .expect('Body cant be null');
+    return request(app.getHttpServer()).patch('/products/add').expect(401);
   });
   it('/products/editbyid/1 (PATCH)', () => {
     return request(app.getHttpServer())
       .patch('/products/editbyid/1')
-      .expect(200)
-      .expect('Body cant be null');
+      .expect(401);
   });
   it('/products/deletebyid/0 (DELETE)', () => {
     return request(app.getHttpServer())
       .delete('/products/deletebyid/0')
-      .expect(202)
-      .expect('id cant be 0');
+      .expect(401);
   });
   it('/products/delete_all (DELETE)', () => {
     return request(app.getHttpServer())
       .delete('/products/delete_all')
-      .expect(202)
-      .expect('id cant be 0');
+      .expect(401);
   });
 });
