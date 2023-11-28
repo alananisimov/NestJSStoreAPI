@@ -34,7 +34,7 @@ export class ReviewsService {
     }
   }
 
-  async updateReviewById(id, updatedReview) {
+  async updateReviewById(id: string | number | boolean, updatedReview: Review) {
     try {
       const { rows } = await db.sql`
         UPDATE reviews 
@@ -49,7 +49,7 @@ export class ReviewsService {
     }
   }
 
-  async deleteReviewById(id) {
+  async deleteReviewById(id: string | number | boolean) {
     try {
       const { rows } = await db.sql`
         DELETE FROM reviews

@@ -6,7 +6,7 @@ import {
 } from '@nestjs/platform-fastify';
 import * as path from 'path';
 // import { db } from '@vercel/postgres';
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
@@ -18,7 +18,7 @@ async function bootstrap() {
     root: path.join(process.cwd(), './public'),
   });
   app.enableCors({
-    origin: true,
+    origin: ['https://bookconer.site', 'http://localhost:3000'],
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   });

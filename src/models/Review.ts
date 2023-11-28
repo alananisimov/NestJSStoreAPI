@@ -5,6 +5,6 @@ export interface Review {
   text: string;
   avatar_url: string;
   title: string;
-  stars: number;
+  stars: string;
   photo_url: string;
 }

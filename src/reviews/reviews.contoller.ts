@@ -21,7 +21,6 @@ export class ReviewsController {
   async getReviews() {
     return this.reviewsService.getAllReviews();
   }
-
   @Patch('add')
   @HttpCode(202)
   async addReview(@Body() newReview: Review) {
